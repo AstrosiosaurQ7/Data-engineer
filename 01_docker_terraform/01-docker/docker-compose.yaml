@@ -1,0 +1,36 @@
+version: '3.8'  # 推荐添加
+services:
+  postgres:
+    # container_name: pg-database
+    image: postgres:17-alpine
+    volumes:
+      - vol-pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=ny_taxi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"  # 端口建议加引号，避免 YAML 解析问题
+
+  pgadmin:
+    # container_name: pgadmin
+    image: dpage/pgadmin4
+    volumes:
+      - ./data_pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com  # 移除引号
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"  # 端口建议加引号
+
+volumes:
+  vol-pgdata:
+    external: true  # ✅ 强制使用已有 volume
+
+
+  
+
+
+
+
+
